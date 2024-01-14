@@ -25,4 +25,8 @@ public class Usuario {
 
     @ManyToMany(mappedBy = "usuarios")
     private List<Jogo> jogos;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "carteira_id")
+    private Carteira carteira;
 }

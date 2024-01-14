@@ -1,5 +1,6 @@
 package com.example.jhonata.PlataformaDeJogos.model.dto;
 
+import com.example.jhonata.PlataformaDeJogos.model.Carteira;
 import com.example.jhonata.PlataformaDeJogos.model.Jogo;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,4 +18,5 @@ public class UsuarioDTO {
     private String nomeUsuario;
     private String email;
     private List<Jogo> jogos;
+    private Carteira carteira;
 }
