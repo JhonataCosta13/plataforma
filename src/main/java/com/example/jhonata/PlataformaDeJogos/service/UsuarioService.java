@@ -17,13 +17,21 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @Autowired JogoService jogoService;
+    @Autowired
+    private JogoService jogoService;
+
+    @Autowired
+    private CartaoCreditoService cartaoCreditoService;
 
     @Autowired
     private ModelMapper modelMapper;
 
+
     public Usuario saveUsuario(Usuario usuarioInput) {
-        return usuarioRepository.save(usuarioInput);
+
+        usuarioRepository.save(usuarioInput);
+        cartaoCreditoService.salvarCartaoNaCarteira(usuarioInput.getCarteira().getCartaoCreditos(), usuarioInput.getCarteira());
+        return usuarioInput;
     }
 
     public List<UsuarioDTO> getAll() {
@@ -33,11 +41,12 @@ public class UsuarioService {
         return usuariosDTO;
     }
 
-    public Usuario adicionarJogos(Long id, JogoInputDTO usuarioIds) {
+    public UsuarioDTO adicionarJogos(Long id, JogoInputDTO usuarioIds) {
         Usuario usuario = usuarioRepository.findById(id).get();
         List<Jogo> jogos = jogoService.buscarJogoPorId(usuarioIds.getJogoIds().stream().toList());
         jogoService.vinculaUsuario(jogos, usuario);
         usuario.setJogos(jogos);
-        return usuarioRepository.save(usuario);
+        usuario = usuarioRepository.save(usuario);
+        return modelMapper.map(usuario, UsuarioDTO.class);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.jhonata.PlataformaDeJogos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,9 +25,11 @@ public class Usuario {
     private String senha;
 
     @ManyToMany(mappedBy = "usuarios")
+
     private List<Jogo> jogos;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "carteira_id")
     private Carteira carteira;
+
 }

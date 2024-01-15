@@ -2,9 +2,10 @@ package com.example.jhonata.PlataformaDeJogos.model.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+
 @Getter
 @Setter
-public class JogoDTO {
+public class CartaoCreditoDTO {
     private Long id;
-    private String nomeJogo;
+    private String numeroCartao;
 }

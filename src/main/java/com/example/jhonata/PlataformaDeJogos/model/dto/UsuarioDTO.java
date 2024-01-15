@@ -17,6 +17,6 @@ public class UsuarioDTO {
     private LocalDate dataNascimento;
     private String nomeUsuario;
     private String email;
-    private List<Jogo> jogos;
-    private Carteira carteira;
+    private List<JogoDTO> jogos;
+    private CarteiraDTO carteira;
 }

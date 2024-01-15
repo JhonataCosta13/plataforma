@@ -4,20 +4,20 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @Entity
 @Table
-public class Carteira {
+public class CartaoCredito {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Float fundos;
 
-    @OneToMany(mappedBy = "carteira")
-    private List<CartaoCredito> cartaoCreditos;
+    private Integer codSeguranca;
+    private String numeroCartao;
 
+    @ManyToOne
+    @JoinColumn(name = "carteira_id")
+    private Carteira carteira;
 }

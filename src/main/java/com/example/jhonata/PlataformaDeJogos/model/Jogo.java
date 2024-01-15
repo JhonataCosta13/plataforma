@@ -26,7 +26,7 @@ public class Jogo {
             joinColumns = @JoinColumn(name = "jogo_id"),
             inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
-    @JsonIgnore
+   @JsonIgnore
     private List<Usuario> usuarios;
 
     public void addUsuario(Usuario usuario) {

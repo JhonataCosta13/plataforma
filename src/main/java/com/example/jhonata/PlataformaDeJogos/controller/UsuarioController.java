@@ -38,8 +38,8 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> addJogo(@PathVariable("id") Long id, @RequestBody JogoInputDTO jogoInputDTO){
-        Usuario usuario = usuarioService.adicionarJogos(id, jogoInputDTO);
-        return ResponseEntity.ok().body(usuario);
+    public ResponseEntity<UsuarioDTO> addJogo(@PathVariable("id") Long id, @RequestBody JogoInputDTO jogoInputDTO){
+        UsuarioDTO usuarioDTO = usuarioService.adicionarJogos(id, jogoInputDTO);
+        return ResponseEntity.ok().body(usuarioDTO);
     }
 }
