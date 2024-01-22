@@ -3,7 +3,9 @@ package com.example.jhonata.PlataformaDeJogos.controller;
 import com.example.jhonata.PlataformaDeJogos.model.Usuario;
 import com.example.jhonata.PlataformaDeJogos.model.dto.JogoInputDTO;
 import com.example.jhonata.PlataformaDeJogos.model.dto.UsuarioDTO;
+import com.example.jhonata.PlataformaDeJogos.model.dto.UsuarioInputDTO;
 import com.example.jhonata.PlataformaDeJogos.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,7 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<?> criarUsuario(@RequestBody Usuario usuarioInput){
+    public ResponseEntity<?> criarUsuario(@RequestBody @Valid UsuarioInputDTO usuarioInput){
 
         Usuario usuarioOutput = usuarioService.saveUsuario(usuarioInput);
         URI location = UriComponentsBuilder.

@@ -4,6 +4,7 @@ import com.example.jhonata.PlataformaDeJogos.model.Jogo;
 import com.example.jhonata.PlataformaDeJogos.model.Usuario;
 import com.example.jhonata.PlataformaDeJogos.model.dto.JogoInputDTO;
 import com.example.jhonata.PlataformaDeJogos.model.dto.UsuarioDTO;
+import com.example.jhonata.PlataformaDeJogos.model.dto.UsuarioInputDTO;
 import com.example.jhonata.PlataformaDeJogos.repository.UsuarioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,8 @@ public class UsuarioService {
     private ModelMapper modelMapper;
 
 
-    public Usuario saveUsuario(Usuario usuarioInput) {
-
+    public Usuario saveUsuario(UsuarioInputDTO usuarioInputDTO) {
+        Usuario usuarioInput = modelMapper.map(usuarioInputDTO, Usuario.class);
         usuarioRepository.save(usuarioInput);
         cartaoCreditoService.salvarCartaoNaCarteira(usuarioInput.getCarteira().getCartaoCreditos(), usuarioInput.getCarteira());
         return usuarioInput;
