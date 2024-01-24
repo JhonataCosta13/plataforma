@@ -25,7 +25,6 @@ public class Usuario {
     private String senha;
 
     @ManyToMany(mappedBy = "usuarios")
-
     private List<Jogo> jogos;
 
     @OneToOne(cascade = CascadeType.ALL)
