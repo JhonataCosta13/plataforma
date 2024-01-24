@@ -44,4 +44,10 @@ public class UsuarioController {
         UsuarioDTO usuarioDTO = usuarioService.adicionarJogos(id, jogoInputDTO);
         return ResponseEntity.ok().body(usuarioDTO);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UsuarioDTO> buscarUsuario(@PathVariable("id") Long id){
+        UsuarioDTO usuario = usuarioService.getUsuarioById(id);
+        return ResponseEntity.ok().body(usuario);
+    }
 }

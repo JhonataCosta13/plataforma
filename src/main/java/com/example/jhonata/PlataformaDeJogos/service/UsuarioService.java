@@ -6,11 +6,14 @@ import com.example.jhonata.PlataformaDeJogos.model.dto.JogoInputDTO;
 import com.example.jhonata.PlataformaDeJogos.model.dto.UsuarioDTO;
 import com.example.jhonata.PlataformaDeJogos.model.dto.UsuarioInputDTO;
 import com.example.jhonata.PlataformaDeJogos.repository.UsuarioRepository;
+import com.example.jhonata.PlataformaDeJogos.service.exception.NegocioExeption;
+import com.example.jhonata.PlataformaDeJogos.service.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -29,6 +32,9 @@ public class UsuarioService {
 
 
     public Usuario saveUsuario(UsuarioInputDTO usuarioInputDTO) {
+        if(usuarioInputDTO.getNome().equals("puta")){
+            throw new NegocioExeption("Nome Imprópio");
+        }
         Usuario usuarioInput = modelMapper.map(usuarioInputDTO, Usuario.class);
         usuarioRepository.save(usuarioInput);
         cartaoCreditoService.salvarCartaoNaCarteira(usuarioInput.getCarteira().getCartaoCreditos(), usuarioInput.getCarteira());
@@ -48,6 +54,12 @@ public class UsuarioService {
         jogoService.vinculaUsuario(jogos, usuario);
         usuario.setJogos(jogos);
         usuario = usuarioRepository.save(usuario);
+        return modelMapper.map(usuario, UsuarioDTO.class);
+    }
+
+    public UsuarioDTO getUsuarioById(Long id) {
+        Usuario usuario = usuarioRepository.findById(id).
+                orElseThrow( () -> new ObjectNotFoundException("Usuário Não Encontrado. ID: "+ id));
         return modelMapper.map(usuario, UsuarioDTO.class);
     }
 }
