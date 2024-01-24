@@ -10,13 +10,14 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import static com.example.jhonata.PlataformaDeJogos.service.Util.DateUtils.getCurrentTime;
 
 @ControllerAdvice
 public class ResourceExceptionHandle {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> validation(MethodArgumentNotValidException e, HttpServletRequest request){
-        ValidationError error = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Validation errors", System.currentTimeMillis());
+        ValidationError error = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Validation errors", getCurrentTime());
         for(FieldError x : e.getBindingResult().getFieldErrors()){
             error.addError(x.getField(), x.getDefaultMessage());
         }
@@ -25,19 +26,19 @@ public class ResourceExceptionHandle {
 
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request){
-        StandardError error = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
+        StandardError error = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), getCurrentTime());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
     @ExceptionHandler(NegocioExeption.class)
     public ResponseEntity<StandardError> negocioExcepition(NegocioExeption e, HttpServletRequest request){
-        StandardError error = new StandardError(HttpStatus.NOT_ACCEPTABLE.value(), e.getMessage(), System.currentTimeMillis());
+        StandardError error = new StandardError(HttpStatus.NOT_ACCEPTABLE.value(), e.getMessage(), getCurrentTime());
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(error);
     }
 
     @ExceptionHandler(JogoDuplicadoException.class)
     public ResponseEntity<StandardError> jogoDuplicadoExcepition(JogoDuplicadoException e, HttpServletRequest request){
-        StandardError error = new StandardError(HttpStatus.CONFLICT.value(), e.getMessage(), System.currentTimeMillis());
+        StandardError error = new StandardError(HttpStatus.CONFLICT.value(), e.getMessage(), getCurrentTime());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 }

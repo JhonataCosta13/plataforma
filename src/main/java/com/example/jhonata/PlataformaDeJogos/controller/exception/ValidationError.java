@@ -13,7 +13,7 @@ public class ValidationError extends StandardError{
 
     private List<FieldMessage> errors = new ArrayList<>();
 
-    public ValidationError(Integer status, String msg, Long timestamp){
+    public ValidationError(Integer status, String msg, String timestamp){
         super(status, msg, timestamp);
     }
 
